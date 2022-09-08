@@ -1,0 +1,26 @@
+name: Terraform PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  job:
+    name: Lint
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout pr
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.2.6
+
+      - name: Run terraform fmt check
+        run: terraform fmt -check -diff -recursive
+
+  
