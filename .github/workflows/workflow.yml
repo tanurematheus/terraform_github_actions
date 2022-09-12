@@ -14,7 +14,7 @@ jobs:
       - name: Checkout pr
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v2
@@ -83,7 +83,7 @@ jobs:
           working-dir: .
           output-file: README.md
           output-method: inject
-          git-push: "false"      
+          git-push: "true"      
 
   push:
     if: github.event_name == 'push'
